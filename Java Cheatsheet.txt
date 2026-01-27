@@ -1,0 +1,771 @@
+1. Assignments on Java Generics
+a) Generic Class
+class GenericBox<T> {
+    private T value;
+
+    public GenericBox(T value) {
+        this.value = value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public void display() {
+        System.out.println("Stored value: " + value);
+    }
+}
+
+public class GenericClassDemo {
+    public static void main(String[] args) {
+        GenericBox<Integer> intBox = new GenericBox<>(100);
+        intBox.display();
+
+        GenericBox<String> strBox = new GenericBox<>("Hello Generics");
+        strBox.display();
+
+        GenericBox<Double> doubleBox = new GenericBox<>(45.67);
+        doubleBox.display();
+    }
+}
+
+b) Generic Methods
+class GenericMethodDemo {
+    public static <T> void display(T value) {
+        System.out.println("Value: " + value);
+    }
+
+    public static <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.println(element);
+        }
+    }
+
+    public static void main(String[] args) {
+        display(10);
+        display("Hello Generic Method");
+        display(25.5);
+
+        Integer[] intArray = {1, 2, 3};
+        String[] strArray = {"Java", "Generics", "Method"};
+
+        printArray(intArray);
+        printArray(strArray);
+    }
+}
+
+c) Wildcards in Generics
+import java.util.*;
+
+class WildcardDemo {
+
+    public static void printList(List<?> list) {
+        for (Object element : list) {
+            System.out.println(element);
+        }
+    }
+
+    public static void printNumbers(List<? extends Number> list) {
+        for (Number num : list) {
+            System.out.println(num);
+        }
+    }
+
+    public static void addNumbers(List<? super Integer> list) {
+        list.add(10);
+        list.add(20);
+    }
+
+    public static void main(String[] args) {
+        List<Integer> intList = Arrays.asList(1, 2, 3);
+        List<Double> doubleList = Arrays.asList(1.5, 2.5, 3.5);
+        List<Number> numberList = new ArrayList<>();
+
+        printList(intList);
+        printNumbers(doubleList);
+        addNumbers(numberList);
+        printList(numberList);
+    }
+}
+
+2. Assignments on List Interface
+a) List of Items
+import java.util.*;
+
+class ListDemo {
+    public static void main(String[] args) {
+        List<String> items = new ArrayList<>();
+        items.add("Pen");
+        items.add("Notebook");
+        items.add("Pencil");
+        items.add("Eraser");
+
+        for (String item : items) {
+            System.out.println(item);
+        }
+    }
+}
+
+b) ListIterator (Forward & Reverse)
+import java.util.*;
+
+class ListIteratorDemo {
+    public static void main(String[] args) {
+        List<String> items = new ArrayList<>();
+        items.add("Laptop");
+        items.add("Mobile");
+        items.add("Tablet");
+        items.add("Headphones");
+
+        ListIterator<String> itr = items.listIterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+
+        while (itr.hasPrevious()) {
+            System.out.println(itr.previous());
+        }
+    }
+}
+
+3. Assignments on Set Interface
+a) Set with Iterator
+import java.util.*;
+
+class SetIteratorDemo {
+    public static void main(String[] args) {
+        Set<String> items = new LinkedHashSet<>();
+        items.add("Pen");
+        items.add("Book");
+        items.add("Bag");
+        items.add("Bottle");
+
+        Iterator<String> itr = items.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+
+        List<String> list = new ArrayList<>(items);
+        ListIterator<String> listItr = list.listIterator(list.size());
+        while (listItr.hasPrevious()) {
+            System.out.println(listItr.previous());
+        }
+    }
+}
+
+b) Set Operations
+import java.util.*;
+
+class SetOperationsDemo {
+    public static void main(String[] args) {
+        Set<String> set1 = new HashSet<>();
+        set1.add("Apple");
+        set1.add("Banana");
+        set1.add("Mango");
+        set1.add("Orange");
+
+        Set<String> set2 = new HashSet<>();
+        set2.add("Grapes");
+        set2.add("Pineapple");
+
+        set1.addAll(set2);
+        set1.remove("Banana");
+
+        if (set1.contains("Mango")) {
+            System.out.println("Mango found");
+        }
+    }
+}
+
+4. Assignments on Map Interface
+import java.util.*;
+
+class MapOperationsDemo {
+    public static void main(String[] args) {
+        Map<Integer, String> map1 = new HashMap<>();
+        map1.put(1, "Apple");
+        map1.put(2, "Banana");
+        map1.put(3, "Mango");
+
+        map1.remove(2);
+
+        if (map1.containsKey(3)) {
+            System.out.println(map1.get(3));
+        }
+
+        Map<Integer, String> map2 = new HashMap<>();
+        map2.put(4, "Orange");
+
+        map1.putAll(map2);
+
+        for (Map.Entry<Integer, String> entry : map1.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+    }
+}
+
+5. Assignments on Lambda Expression
+a) Hello World
+interface Message {
+    void print();
+}
+
+class LambdaHelloWorld {
+    public static void main(String[] args) {
+        Message msg = () -> System.out.println("Hello World");
+        msg.print();
+    }
+}
+
+b) Single Parameter
+interface Display {
+    void show(String message);
+}
+
+class LambdaSingleParameter {
+    public static void main(String[] args) {
+        Display d = message -> System.out.println(message);
+        d.show("Welcome to Java Lambda Expression");
+    }
+}
+
+c) Multiple Parameters
+interface Addition {
+    int add(int a, int b);
+}
+
+class LambdaMultipleParameters {
+    public static void main(String[] args) {
+        Addition sum = (a, b) -> a + b;
+        System.out.println(sum.add(10, 20));
+    }
+}
+
+d) Unit Conversion
+interface Converter {
+    double convert(double value);
+}
+
+class LambdaConversionDemo {
+    public static void main(String[] args) {
+        Converter fToC = f -> (f - 32) * 5 / 9;
+        Converter kmToMiles = km -> km * 0.621371;
+
+        System.out.println(fToC.convert(98.6));
+        System.out.println(kmToMiles.convert(10));
+    }
+}
+
+e) With & Without Return
+interface Operation {
+    int calculate(int a, int b);
+}
+
+class LambdaReturnDemo {
+    public static void main(String[] args) {
+        Operation add1 = (a, b) -> { return a + b; };
+        Operation add2 = (a, b) -> a + b;
+
+        System.out.println(add1.calculate(10, 20));
+        System.out.println(add2.calculate(30, 40));
+    }
+}
+
+f) String Concatenation
+interface StringConcat {
+    String combine(String s1, String s2);
+}
+
+class LambdaStringConcat {
+    public static void main(String[] args) {
+        StringConcat concat = (s1, s2) -> s1 + s2;
+        System.out.println(concat.combine("Hello ", "World"));
+    }
+}
+
+
+8. Assignment based Aspect Oriented Programming
+a. Write a program to demonstrate Spring AOP – before advice.
+Student.java:
+public class Student {
+ public void study() {
+ System.out.println("Student is studying...");
+ }
+}
+LoggingAspect.java:
+public class LoggingAspect {
+ public void beforeAdvice() {
+ System.out.println("Before Advice: Logging before method execution");
+ }
+}
+applicationContext.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ <!-- Target Bean -->
+ <bean id="studentBean" class="Student"/>
+ <!-- Aspect Bean -->
+ <bean id="loggingAspect" class="LoggingAspect"/>
+ <!-- AOP Configuration -->
+ <aop:config>
+ <aop:aspect ref="loggingAspect">
+ <aop:before method="beforeAdvice"
+ pointcut="execution(* Student.study(..))"/>
+ </aop:aspect>
+ </aop:config>
+</beans>
+MainApp.java:
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.study();
+ }
+}
+
+b. Write a program to demonstrate Spring AOP – after advice.
+Student.java:
+public class Student {
+ public void study() {
+ System.out.println("Student is studying...");
+ }
+}
+LoggingAspect.java:
+public class LoggingAspect {
+ public void afterAdvice() {
+ System.out.println("After Advice: Logging after method execution");
+ }
+}
+applicationContext.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ <!-- Target Bean -->
+ <bean id="studentBean" class="Student"/>
+ <!-- Aspect Bean -->
+ <bean id="loggingAspect" class="LoggingAspect"/>
+ <!-- AOP Configuration -->
+ <aop:config>
+ <aop:aspect ref="loggingAspect">
+ <aop:after method="afterAdvice"
+ pointcut="execution(* Student.study(..))"/>
+ </aop:aspect>
+ </aop:config>
+</beans>
+MainApp.java:
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.study();
+ }
+}
+
+c. Write a program to demonstrate Spring AOP – around advice.
+Student.java:
+public class Student {
+ public void study() {
+ System.out.println("Student is studying...");
+ }
+}
+LoggingAspect.java:
+import org.aspectj.lang.ProceedingJoinPoint;
+public class LoggingAspect {
+ public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
+ System.out.println("Around Advice: Before method execution");
+ Object result = pjp.proceed(); // calls target method
+ System.out.println("Around Advice: After method execution");
+ return result;
+ }
+}
+applicationContext.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ <!-- Target Bean -->
+ <bean id="studentBean" class="Student"/>
+ <!-- Aspect Bean -->
+ <bean id="loggingAspect" class="LoggingAspect"/>
+ <!-- AOP Configuration -->
+ <aop:config>
+ <aop:aspect ref="loggingAspect">
+ <aop:around method="aroundAdvice"
+ pointcut="execution(* Student.study(..))"/>
+ </aop:aspect>
+ </aop:config>
+</beans>
+MainApp.java:
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.study();
+ }
+}
+
+d. Write a program to demonstrate Spring AOP – after returning advice.
+Student.java:
+public class Student {
+ public String study() {
+ System.out.println("Student is studying...");
+ return "Study Completed";
+ }
+}
+LoggingAspect.java:
+public class LoggingAspect {
+ public void afterReturningAdvice(Object result) {
+ System.out.println("After Returning Advice: Method returned -> " + result);
+ }
+}
+applicationContext.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ <!-- Target Bean -->
+ <bean id="studentBean" class="Student"/>
+ <!-- Aspect Bean -->
+ <bean id="loggingAspect" class="LoggingAspect"/>
+ <!-- AOP Configuration -->
+ <aop:config>
+ <aop:aspect ref="loggingAspect">
+ <aop:after-returning
+ method="afterReturningAdvice"
+ pointcut="execution(* Student.study(..))"
+ returning="result"/>
+ </aop:aspect>
+ </aop:config>
+</beans>
+MainApp.java:
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.study();
+ }
+}
+
+
+e. Write a program to demonstrate Spring AOP – after throwing advice.
+Student.java:
+public class Student {
+ public void study() {
+ System.out.println("Student is studying...");
+ throw new RuntimeException("Study interrupted due to error");
+ }
+}
+LoggingAspect.java:
+public class LoggingAspect {
+ public void afterThrowingAdvice(Exception ex) {
+ System.out.println("After Throwing Advice: Exception occurred -> " +
+ex.getMessage());
+ }
+}
+applicationContext.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ <!-- Target Bean -->
+ <bean id="studentBean" class="Student"/>
+ <!-- Aspect Bean -->
+ <bean id="loggingAspect" class="LoggingAspect"/>
+ <!-- AOP Configuration -->
+ <aop:config>
+ <aop:aspect ref="loggingAspect">
+ <aop:after-throwing
+ method="afterThrowingAdvice"
+ pointcut="execution(* Student.study(..))"
+ throwing="ex"/>
+ </aop:aspect>
+ </aop:config>
+</beans>
+MainApp.java:
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ try {
+ student.study();
+ } catch (Exception e) {
+ // Exception handled in main
+ }
+ }
+}
+
+f. Write a program to demonstrate Spring AOP – pointcuts.
+Student.java:
+public class Student {
+ public void study() {
+ System.out.println("Student is studying...");
+ }
+ public void attendExam() {
+ System.out.println("Student is attending exam...");
+ }
+}
+LoggingAspect.java:
+public class LoggingAspect {
+ public void logAdvice() {
+ System.out.println("Pointcut Advice: Method execution intercepted");
+ }
+}
+applicationContext.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop.xsd">
+ <!-- Target Bean -->
+ <bean id="studentBean" class="Student"/>
+ <!-- Aspect Bean -->
+ <bean id="loggingAspect" class="LoggingAspect"/>
+ <!-- AOP Configuration with Pointcut -->
+ <aop:config>
+ <!-- Pointcut definition -->
+ <aop:pointcut id="studentMethods"
+ expression="execution(* Student.*(..))"/>
+ <aop:aspect ref="loggingAspect">
+ <aop:before method="logAdvice"
+ pointcut-ref="studentMethods"/>
+ </aop:aspect>
+ </aop:config>
+</beans>
+MainApp.java:
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.study();
+ student.attendExam();
+ }
+}
+
+7. Assignment based Spring Framework
+a. Write a program to print “Hello World” using spring framework.
+Code (HelloWorld.java):
+public class HelloWorld {
+ public void printMessage() {
+ System.out.println("Hello World");
+ }
+}
+Code (MainApp.java):
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ HelloWorld obj = (HelloWorld) context.getBean("helloBean");
+ obj.printMessage();
+ }
+}
+Code (applicationContext.xml):
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+ <bean id="helloBean" class="HelloWorld"/>
+</beans>
+
+b. Write a program to demonstrate dependency injection via setter method.
+Code (Address.java):
+public class Address {
+ private String city;
+ public void setCity(String city) {
+ this.city = city;
+ }
+ public String getCity() {
+ return city;
+ }
+}
+Code (Student.java):
+public class Student {
+ private Address address;
+ // Setter method (Dependency Injection)
+ public void setAddress(Address address) {
+ this.address = address;
+ }
+ public void display() {
+ System.out.println("Student City: " + address.getCity());
+ }
+}
+Code (applicationContext.xml):
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+ <!-- Address Bean -->
+ <bean id="addressBean" class="Address">
+ <property name="city" value="Mumbai"/>
+ </bean>
+ <!-- Student Bean with Setter Injection -->
+ <bean id="studentBean" class="Student">
+ <property name="address" ref="addressBean"/>
+ </bean>
+</beans>
+Code (MainApp.java):
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.display();
+ }
+}
+
+c. Write a program to demonstrate dependency injection via Constructor.
+Code (Address.java):
+public class Address {
+ private String city;
+ public Address(String city) {
+ this.city = city;
+ }
+ public String getCity() {
+ return city;
+ }
+}
+Code(Student.java):
+public class Student {
+ private Address address;
+ // Constructor Injection
+ public Student(Address address) {
+ this.address = address;
+ }
+ public void display() {
+ System.out.println("Student City: " + address.getCity());
+ }
+}
+Code(applicationContext.xml):
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+ <!-- Address Bean -->
+ <bean id="addressBean" class="Address">
+ <constructor-arg value="Pune"/>
+ </bean>
+ <!-- Student Bean using Constructor Injection -->
+ <bean id="studentBean" class="Student">
+ <constructor-arg ref="addressBean"/>
+ </bean>
+</beans>
+Code (MainApp.java):
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.display();
+ }
+}
+
+d. Write a program to demonstrate Autowiring.
+Code (Address.java):
+public class Address {
+ private String city;
+ public void setCity(String city) {
+ this.city = city;
+ }
+ public String getCity() {
+ return city;
+ }
+}
+Code (Student.java):
+public class Student {
+ private Address address;
+ // Setter method
+ public void setAddress(Address address) {
+ this.address = address;
+ }
+ public void display() {
+ System.out.println("Student City: " + address.getCity());
+ }
+}
+Code (applicationContext.xml):
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+ <!-- Address Bean -->
+ <bean id="addressBean" class="Address">
+ <property name="city" value="Delhi"/>
+ </bean>
+ <!-- Student Bean with Autowiring -->
+ <bean id="studentBean" class="Student" autowire="byType"/>
+</beans>
+Code (MainApp.java):
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class MainApp {
+ public static void main(String[] args) {
+ ApplicationContext context =
+ new ClassPathXmlApplicationContext("applicationContext.xml");
+ Student student = (Student) context.getBean("studentBean");
+ student.display();
+ }
