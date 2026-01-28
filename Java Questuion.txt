@@ -1,0 +1,92 @@
+What is Generics in Java?
+Generics allow writing type-safe code using parameterized types.
+2. Why are Generics used?
+To avoid ClassCastException and ensure compile-time type safety.
+3. What is a generic class?
+A class that works with different data types using type parameters.
+4. What does represent?
+It represents a type parameter.
+5. What is a generic method?
+A method that works with different data types.
+6. What is an unbounded wildcard?
+It accepts any type for read-only access.
+7. What is upper bounded wildcard?
+It accepts a class and its subclasses.
+8. What is lower bounded wildcard?
+It accepts a class and its superclasses.
+9. What is List interface?
+An ordered collection that allows duplicate elements.
+10. Which classes implement List?
+ArrayList, LinkedList, Vector.
+11. What is ListIterator?
+It allows forward and backward traversal of a list.
+12. Difference between Iterator and ListIterator?
+ListIterator supports bidirectional traversal.
+13. Can List store duplicates?
+Yes, List allows duplicate elements.
+14. What is Set interface?
+A collection that does not allow duplicate elements.
+15. Which Set maintains insertion order?
+LinkedHashSet.
+16. Can Set store duplicates?
+No, duplicates are not allowed.
+17. How to search element in Set?
+Using contains() method.
+18. Which Set is unordered?
+HashSet.
+19. What is Map interface?
+It stores data in key-value pairs.
+20. Can Map have duplicate keys?
+No, keys must be unique.
+21. Can Map have duplicate values?
+Yes, values can be duplicated.
+22. Which classes implement Map?
+HashMap, TreeMap, LinkedHashMap.
+23. How to get value from Map?
+Using get(key) method.
+24. How to iterate Map?
+Using entrySet() method.
+25. What is Lambda Expression?
+A concise way to implement functional interfaces.
+26. What symbol is used in Lambda?
+Arrow operator (->).
+27. What is functional interface?
+An interface with one abstract method.
+28. Can Lambda have multiple parameters?
+Yes, Lambda can have multiple parameters.
+29. Is return mandatory in Lambda?
+No, return is optional for single expressions.
+30. What is JSP?
+A server-side technology to create dynamic web pages.
+31. What is JSP Scriptlet?
+Java code written inside <% %>.
+32. What is JSP Expression?
+It outputs value using <%= %>.
+33. What is JSP Declaration?
+It declares variables and methods using <%! %>.
+34. Why JDBC is used in JSP?
+To connect database with JSP.
+35. How to get form data in JSP?
+Using request.getParameter().
+36. What is Spring Framework?
+A lightweight framework for Java applications.
+37. What is Dependency Injection?
+Injecting dependencies instead of creating them manually.
+38. Types of Dependency Injection?
+Setter and Constructor injection.
+39. What is ApplicationContext?
+Spring container that manages beans.
+40. What is Autowiring?
+Automatic dependency injection by Spring.
+41. What is AOP?
+Aspect Oriented Programming for cross-cutting concerns.
+42. What is Advice?
+Code executed at specific join points.
+43. What is Before Advice?
+Runs before method execution.
+44. What is After Advice?
+Runs after method execution.
+45. What is Around Advice?
+Runs before and after method execution.
+46. What is Pointcut?
+Expression that defines where advice is applied.
