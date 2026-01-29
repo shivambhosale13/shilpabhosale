@@ -1,0 +1,259 @@
+Advanced Database Management System Lab
+Questions and Programs (Code Only)
+Module 1 – Distributed Database
+Experiment 1(a): Range Partitioning (MySQL)
+Questions
+
+What is Range Partitioning?
+
+How to create a table using RANGE partitioning?
+
+How to retrieve data from a specific partition?
+
+How to truncate a partition?
+
+Program
+CREATE DATABASE mca;
+USE mca;
+
+CREATE TABLE tr (
+  id INT,
+  name VARCHAR(50),
+  purchased DATE
+)
+PARTITION BY RANGE (YEAR(purchased)) (
+  PARTITION p0 VALUES LESS THAN (1990),
+  PARTITION p1 VALUES LESS THAN (1995),
+  PARTITION p2 VALUES LESS THAN (2000),
+  PARTITION p3 VALUES LESS THAN (2005),
+  PARTITION p4 VALUES LESS THAN (2010),
+  PARTITION p5 VALUES LESS THAN (2015)
+);
+
+INSERT INTO tr VALUES
+(1, 'desk organiser', '2003-10-15'),
+(2, 'alarm clock', '1997-11-05'),
+(3, 'chair', '2009-03-10'),
+(4, 'bookcase', '1989-01-10'),
+(5, 'exercise bike', '2014-05-09'),
+(6, 'sofa', '1987-06-05'),
+(7, 'espresso maker', '2011-11-22'),
+(8, 'aquarium', '1992-08-04'),
+(9, 'study desk', '2006-09-16'),
+(10, 'lava lamp', '1998-12-25');
+
+SELECT * FROM tr;
+SELECT * FROM tr PARTITION (p2);
+
+SELECT PARTITION_NAME, TABLE_ROWS
+FROM INFORMATION_SCHEMA.PARTITIONS
+WHERE TABLE_NAME = 'tr';
+
+ALTER TABLE tr TRUNCATE PARTITION p0;
+
+Experiment 1(b): List Partitioning (MySQL)
+Questions
+
+What is LIST Partitioning?
+
+How does LIST partition differ from RANGE partition?
+
+Program
+CREATE TABLE Stores (
+  cust_name VARCHAR(40),
+  bill_no VARCHAR(20) NOT NULL,
+  store_id INT PRIMARY KEY NOT NULL,
+  bill_date DATE NOT NULL,
+  amount DECIMAL(8,2) NOT NULL
+)
+PARTITION BY LIST(store_id) (
+  PARTITION pEast VALUES IN (101,103,105),
+  PARTITION pWest VALUES IN (102,104,106),
+  PARTITION pNorth VALUES IN (107,109,111),
+  PARTITION pSouth VALUES IN (108,110,112)
+);
+
+Module 2 – OLAP with Oracle
+Experiment: Analytical Queries
+Questions
+
+What is ROLLUP?
+
+What is CUBE?
+
+Difference between RANK and DENSE_RANK?
+
+What is LAG and LEAD?
+
+Programs
+-- ROLLUP
+SELECT sal, SUM(sal) FROM emp GROUP BY ROLLUP(sal);
+
+-- CUBE
+SELECT sal, SUM(sal) FROM emp GROUP BY CUBE(sal);
+
+-- RANK
+SELECT empno, deptno, sal,
+RANK() OVER (PARTITION BY deptno ORDER BY sal) AS myrank
+FROM emp;
+
+-- DENSE_RANK
+SELECT empno, deptno, sal,
+DENSE_RANK() OVER (PARTITION BY deptno ORDER BY sal) AS myrank
+FROM emp;
+
+-- FIRST and LAST
+SELECT empno, deptno, sal,
+MIN(sal) KEEP (DENSE_RANK FIRST ORDER BY sal) OVER (PARTITION BY deptno) AS lowest,
+MAX(sal) KEEP (DENSE_RANK LAST ORDER BY sal) OVER (PARTITION BY deptno) AS highest
+FROM emp;
+
+-- LAG
+SELECT empno, sal,
+LAG(sal,1,0) OVER (ORDER BY sal) AS sal_prev
+FROM emp;
+
+-- LEAD
+SELECT empno, sal,
+LEAD(sal,1,0) OVER (ORDER BY sal) AS sal_next
+FROM emp;
+
+Module 3 – ORDBMS
+Experiment: Abstract Data Type & Reference
+Questions
+
+What is relational model?
+
+How are foreign keys used?
+
+How to query data from multiple tables?
+
+Programs
+CREATE TABLE Customer_reltab (
+  CustNo NUMBER PRIMARY KEY,
+  CustName VARCHAR2(200),
+  Street VARCHAR2(200),
+  City VARCHAR2(200),
+  State CHAR(2),
+  Zip VARCHAR2(20),
+  Phone1 VARCHAR2(20)
+);
+
+CREATE TABLE PurchaseOrder_reltab (
+  PONo NUMBER PRIMARY KEY,
+  CustNo NUMBER REFERENCES Customer_reltab,
+  OrderDate DATE
+);
+
+CREATE TABLE Stock_reltab (
+  StockNo NUMBER PRIMARY KEY,
+  Price NUMBER,
+  TaxRate NUMBER
+);
+
+CREATE TABLE LineItems_reltab (
+  LineItemNo NUMBER,
+  PONo NUMBER REFERENCES PurchaseOrder_reltab,
+  StockNo NUMBER REFERENCES Stock_reltab,
+  Quantity NUMBER,
+  Discount NUMBER,
+  PRIMARY KEY (PONo, LineItemNo)
+);
+
+Module 4 – ETL & Pentaho
+Experiment 1: ETL Process
+Questions
+
+ETL stands for ____________?
+
+Extract is the process of ____________?
+
+Load is the process of ____________?
+
+Experiment 2: Pentaho Installation
+Questions
+
+GUI provided by Pentaho is ___________?
+
+Tool that executes jobs is ___________?
+
+Tool that performs transformations is ___________?
+
+Experiment 3: Extract and Load using Pentaho
+Questions
+
+Extension of transformation file?
+
+Command used to run job on Windows?
+
+Steps of ETL process?
+
+Module 5 – R Programming
+Experiment 1: Introduction to R
+Program
+print("Welcome to R Programming")
+
+Experiment 2: Data Types in R
+x <- 5.6
+class(x)
+
+y <- 5L
+class(y)
+
+z <- TRUE
+class(z)
+
+c <- 4 + 3i
+class(c)
+
+ch <- "MumbaiUniversity"
+class(ch)
+
+Experiment 3: Reading & Writing Data
+record_data <- read.csv("E:/datasets/record.csv")
+head(record_data)
+
+x <- data.frame(name="Ishita", department="IT")
+write.csv(x, "data.csv")
+
+Experiment 4: Packages in R
+install.packages("ggplot2")
+library(ggplot2)
+search()
+
+Module 6 – Data Preprocessing
+dataset$Age <- ifelse(is.na(dataset$Age),
+                      ave(dataset$Age, FUN=function(x) mean(x, na.rm=TRUE)),
+                      dataset$Age)
+
+dataset$Purchased <- factor(dataset$Purchased,
+                            levels=c("No","Yes"),
+                            labels=c(0,1))
+
+Module 7 – Regression & Classification
+Linear Regression
+model <- lm(Height ~ Age, data=data)
+summary(model)
+
+Multiple Linear Regression
+model <- lm(Height ~ Age + Brothers, data=data)
+summary(model)
+
+Logistic Regression
+model <- glm(am ~ hp + gear, data=mtcars, family=binomial)
+summary(model)
+
+KNN using WEKA
+
+(Performed via WEKA GUI – no code)
+
+Module 8 – Data Mining
+Market Basket Analysis
+library(arules)
+rules <- apriori(Groceries, parameter=list(supp=0.001, conf=0.8))
+inspect(rules[1:5])
+
+K-Means Clustering
+set.seed(200)
+kmeans.re <- kmeans(iris[, -5], centers=3)
+plot(iris[,1:2], col=kmeans.re$cluster)
