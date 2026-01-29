@@ -1,0 +1,118 @@
+ADBMS – 64 Viva Questions & Answers (Easy +
+Logical)
+Q1. What is data partitioning?
+A: Dividing a large table into smaller parts for faster access.
+Q2. Why do we use data partitioning?
+A: To improve performance and manage large data.
+Q3. What is RANGE partitioning?
+A: Partitioning based on a range of values like years.
+Q4. Which keyword is used in RANGE partitioning?
+A: PARTITION BY RANGE.
+Q5. Can ranges overlap in RANGE partitioning?
+A: No, ranges should not overlap.
+Q6. What is LIST partitioning?
+A: Partitioning based on fixed or discrete values.
+Q7. Which keyword is used in LIST partitioning?
+A: VALUES IN.
+Q8. Which partitioning is better for year-wise data?
+A: RANGE partitioning.
+Q9. Which partitioning is used for fixed values?
+A: LIST partitioning.
+Q10. What happens if partition is dropped?
+A: Data in that partition is deleted.
+Q11. What is OLAP?
+A: Online Analytical Processing used for analysis.
+Q12. What is ROLLUP?
+A: Generates subtotals and grand total.
+Q13. What is CUBE?
+A: Generates all possible subtotal combinations.
+Q14. ROLLUP vs CUBE?
+A: CUBE gives more combinations than ROLLUP.
+Q15. What is an analytic function?
+A: Works on group of rows and returns value for each row.
+Q16. What is RANK?
+A: Assigns rank with gaps.
+Q17. What is DENSE_RANK?
+A: Assigns rank without gaps.
+Q18. Difference between RANK and DENSE_RANK?
+A: DENSE_RANK does not skip numbers.
+Q19. What is LAG?
+A: Fetches previous row value.
+Q20. What is LEAD?
+A: Fetches next row value.
+Q21. Which function compares previous row?
+A: LAG.
+Q22. Which function compares next row?
+A: LEAD.
+Q23. What is ORDBMS?
+A: Object Relational Database Management System.
+Q24. What is ADT?
+A: User-defined data type.
+Q25. What is reference type?
+A: Pointer to another object.
+Q26. Why ORDBMS is used?
+A: To handle complex data types.
+Q27. ORDBMS vs RDBMS?
+A: ORDBMS supports objects, RDBMS does not.
+Q28. Can RDBMS store objects directly?
+A: No.
+Q29. What does ETL stand for?
+A: Extract, Transform, Load.
+Q30. What is Extract?
+A: Collecting data from source systems.
+Q31. What is Transform?
+A: Cleaning and converting data.
+Q32. What is Load?
+A: Storing data in target system.
+Q33. Why ETL is needed?
+A: Raw data is inconsistent.
+Q34. What is Pentaho?
+A: Open-source ETL tool.
+Q35. What is Spoon?
+A: GUI tool for ETL design.
+Q36. What is Pan?
+A: Executes transformations.
+Q37. What is Kitchen?
+A: Executes jobs.
+Q38. Extension of transformation file?
+A: .ktr.
+Q39. What is R?
+A: Language for statistical analysis.
+Q40. Who developed R?
+A: Ross Ihaka and Robert Gentleman.
+Q41. What is RStudio?
+A: IDE for R programming.
+Q42. What is numeric data type?
+A: Stores decimal values.
+Q43. What is integer data type?
+A: Stores whole numbers.
+Q44. What is logical data type?
+A: Stores TRUE or FALSE.
+Q45. Function to read CSV file?
+A: read.csv().
+Q46. Function to write data to file?
+A: write.table().
+Q47. Which function checks missing values?
+A: is.na().
+Q48. What is factor in R?
+A: Converts categorical data to numeric.
+Q49. What is data preprocessing?
+A: Cleaning raw data.
+Q50. Why preprocessing is important?
+A: Improves model accuracy.
+Q51. What are missing values?
+A: Empty or NULL values.
+Q52. How to handle missing values?
+A: Using mean or average.
+Q53. What is linear regression?
+A: Relationship between two variables.
+Q54. What is logistic regression?
+A: Classification algorithm.
+Q55. What is classification?
+A: Predicting class labels.
+Q56. What is clustering?
+A: Grouping similar data.
+Q57. What is K-Means?
+A: Unsupervised clustering algorithm.
+Q58. Is K-Means supervised?
+A: No, it is unsupervised.
